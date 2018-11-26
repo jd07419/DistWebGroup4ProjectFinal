@@ -1,0 +1,53 @@
+CREATE TABLE `eaglegrocery`.`products_images` (
+  `product_id` INT NOT NULL,
+  `image_small` VARBINARY(8000) NULL,
+  `image_promo` VARBINARY(8000) NULL,
+  PRIMARY KEY (`product_id`),
+  CONSTRAINT `product_id`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `eaglegrocery`.`products` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+ALTER TABLE `eaglegrocery`.`products` 
+CHANGE COLUMN `price` `price` DECIMAL(7,2) NOT NULL ;
+
+
+ALTER TABLE `eaglegrocery`.`purchase` 
+CHANGE COLUMN `total_price` `total_price` DECIMAL(13,2) NOT NULL ;
+
+
+ALTER TABLE `eaglegrocery`.`employees` 
+CHANGE COLUMN `avg_rank` `avg_rank` FLOAT NULL DEFAULT NULL ;
+
+
+ALTER TABLE `eaglegrocery`.`discounts` 
+CHANGE COLUMN `start_date` `start_date` DATE NULL DEFAULT NULL ,
+CHANGE COLUMN `end_date` `end_date` DATE NULL DEFAULT NULL ;
+
+
+ALTER TABLE `eaglegrocery`.`users` 
+ADD COLUMN `cc_num` INT NULL AFTER `password`,
+ADD COLUMN `verification_num` INT NULL AFTER `cc_num`;
+
+
+ALTER TABLE `eaglegrocery`.`purchase` 
+ADD COLUMN `product_quantity` INT NOT NULL AFTER `product_id`,
+CHANGE COLUMN `product_id_set` `product_id` INT(11) NOT NULL ,
+CHANGE COLUMN `total_price` `total_price` FLOAT NOT NULL ;
+
+
+ALTER TABLE `eaglegrocery`.`products` 
+CHANGE COLUMN `price` `price` FLOAT NOT NULL ;
+
+
+ALTER TABLE `eaglegrocery`.`employees` 
+ADD COLUMN `status` INT NOT NULL AFTER `avg_rank`;
+
+
+ALTER TABLE `eaglegrocery`.`discounts` 
+ADD COLUMN `percent_off` FLOAT NOT NULL AFTER `description`;
+
+ALTER TABLE `eaglegrocery`.`products` 
+ADD COLUMN `store_id` INT(11) NOT NULL AFTER `id`;
